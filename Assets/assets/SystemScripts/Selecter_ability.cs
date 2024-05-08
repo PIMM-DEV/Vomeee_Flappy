@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class Selecter_ability : MonoBehaviour
@@ -7,8 +8,10 @@ public class Selecter_ability : MonoBehaviour
     // Start is called before the first frame update
     public RectTransform recttransform;
     int[] posYs = new int[] {305, 225, 145, 65, -15, -95};
-    int currselection;
+    public int currselection;
     public Gameplay gameplay;
+
+    public GameObject OriginalUI;
 
 
     void Start()
@@ -46,10 +49,38 @@ public class Selecter_ability : MonoBehaviour
             if(currselection == 0)
             {
                 gameplay.Ability_Guard();
+
+                Destroy(OriginalUI);
             }
             else if(currselection == 1) 
             {
                 gameplay.Ability_Cure();
+
+                Destroy(OriginalUI);
+            }
+            else if (currselection == 2)
+            {
+                //gameplay.Ability_Stop();
+
+                Destroy(OriginalUI);
+            }
+            else if (currselection == 3)
+            {
+                //gameplay.Ability_Boost();
+
+                Destroy(OriginalUI);
+            }
+            else if (currselection == 4)
+            {
+                gameplay.Ability_Cure();
+
+                Destroy(OriginalUI);
+            }
+            else if (currselection == 5)
+            {
+                gameplay.Ability_Cure();
+
+                Destroy(OriginalUI);
             }
         }
     }

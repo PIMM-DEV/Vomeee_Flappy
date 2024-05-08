@@ -978,7 +978,7 @@ GameObject:
   - component: {fileID: 459255702}
   - component: {fileID: 459255701}
   m_Layer: 5
-  m_Name: Rock
+  m_Name: ability_6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1023,7 +1023,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Guard
+  m_text: ab6
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b5943c313f37d9b438a977d2d9c8a409, type: 2}
   m_sharedMaterial: {fileID: 4161001186581400151, guid: b5943c313f37d9b438a977d2d9c8a409, type: 2}
@@ -1129,6 +1129,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c3770e154d590b4584f7b463633b4b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentRound: 0
+  PlayerHP: 100
+  HP_Decrease_multiplier: 1
+  ATB: 0
+  ATB_Multiplier: 1
+  ATB_Increase: 0
+  enemyActType: 01000000020000000300000004000000
 --- !u!4 &474848982
 Transform:
   m_ObjectHideFlags: 0
@@ -1403,7 +1410,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   recttransform: {fileID: 685109221}
+  currselection: 0
   gameplay: {fileID: 474848981}
+  OriginalUI: {fileID: 1792579636}
 --- !u!1 &739064924
 GameObject:
   m_ObjectHideFlags: 0
@@ -1416,7 +1425,7 @@ GameObject:
   - component: {fileID: 739064927}
   - component: {fileID: 739064926}
   m_Layer: 5
-  m_Name: Rock (1)
+  m_Name: ability_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1461,7 +1470,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: STOP
+  m_text: ab5
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b5943c313f37d9b438a977d2d9c8a409, type: 2}
   m_sharedMaterial: {fileID: 4161001186581400151, guid: b5943c313f37d9b438a977d2d9c8a409, type: 2}
@@ -1984,7 +1993,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LV
+  m_text: BOOST
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b5943c313f37d9b438a977d2d9c8a409, type: 2}
   m_sharedMaterial: {fileID: 4161001186581400151, guid: b5943c313f37d9b438a977d2d9c8a409, type: 2}
@@ -2073,7 +2082,7 @@ GameObject:
   - component: {fileID: 1570068595}
   - component: {fileID: 1570068594}
   m_Layer: 5
-  m_Name: Paper
+  m_Name: ability_8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2118,7 +2127,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Paper
+  m_text: ab8
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b5943c313f37d9b438a977d2d9c8a409, type: 2}
   m_sharedMaterial: {fileID: 4161001186581400151, guid: b5943c313f37d9b438a977d2d9c8a409, type: 2}
@@ -2207,7 +2216,7 @@ GameObject:
   - component: {fileID: 1581099537}
   - component: {fileID: 1581099536}
   m_Layer: 5
-  m_Name: Scissors
+  m_Name: ability_7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2252,7 +2261,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Scissors
+  m_text: ab7
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b5943c313f37d9b438a977d2d9c8a409, type: 2}
   m_sharedMaterial: {fileID: 4161001186581400151, guid: b5943c313f37d9b438a977d2d9c8a409, type: 2}
@@ -2477,7 +2486,7 @@ GameObject:
   - component: {fileID: 1626648804}
   - component: {fileID: 1626648803}
   m_Layer: 5
-  m_Name: Rock (2)
+  m_Name: ability_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2522,7 +2531,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Guard
+  m_text: ab4
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b5943c313f37d9b438a977d2d9c8a409, type: 2}
   m_sharedMaterial: {fileID: 4161001186581400151, guid: b5943c313f37d9b438a977d2d9c8a409, type: 2}
@@ -2764,6 +2773,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 685109221}
+  - {fileID: 1570068593}
+  - {fileID: 1581099535}
   - {fileID: 459255700}
   - {fileID: 739064925}
   - {fileID: 1626648802}
@@ -2771,8 +2782,6 @@ RectTransform:
   - {fileID: 1933085614}
   - {fileID: 68752775}
   - {fileID: 53768396}
-  - {fileID: 1581099535}
-  - {fileID: 1570068593}
   m_Father: {fileID: 127921032}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
