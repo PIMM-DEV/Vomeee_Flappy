@@ -119,7 +119,7 @@ public class Gameplay : MonoBehaviour
                  (enemyAtkType == 2 && playerCondition == 2)) //가위바위보 무승부.
         {
             Vector2 currentPlayerPosition = player.transform.position;
-            player.transform.position = new Vector2(currentPlayerPosition.x, currentPlayerPosition.y + 0.5f * boost); //플레이어 상승.
+            //player.transform.position = new Vector2(currentPlayerPosition.x, currentPlayerPosition.y + 0.5f * boost); //플레이어 상승.
             ATB += ATB_Multiplier * 20;
             StartCoroutine(WaitForCollide(3f));
 
@@ -244,7 +244,7 @@ public class Gameplay : MonoBehaviour
 
     public void TurnEnd() //대결 후
     {
-        StartCoroutine(JustWait(5f));
+        StartCoroutine(JustWait(2f));
         if (enemyInstance != null)
         {
             Destroy(enemyInstance);
