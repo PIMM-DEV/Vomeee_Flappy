@@ -866,6 +866,8 @@ MonoBehaviour:
   EnemySkillUI: {fileID: 584676535}
   playerSkillCanvas: {fileID: 2028694618709456662}
   enemySkillCanvas: {fileID: 584676538}
+  playerSkillText: {fileID: 1471786134872141697}
+  enemySkillText: {fileID: 770883303}
 --- !u!4 &474848982
 Transform:
   m_ObjectHideFlags: 0

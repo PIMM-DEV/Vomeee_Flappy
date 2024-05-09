@@ -181,6 +181,7 @@ public class Gameplay : MonoBehaviour
         TurnEnd();
     }
 
+    
     public void EnemyMove()
     {
         EnemyRB.velocity = new Vector2(-100, -5);
@@ -190,6 +191,9 @@ public class Gameplay : MonoBehaviour
     public GameObject EnemySkillUI;
     public Canvas playerSkillCanvas;
     public Canvas enemySkillCanvas;
+
+    public TextMeshProUGUI playerSkillText;
+    public TextMeshProUGUI enemySkillText;
     public void ShowSkillUI(int enemyAtkType, string enemySkillName)
     {
         // 플레이어 스킬 UI 처리
@@ -205,11 +209,13 @@ public class Gameplay : MonoBehaviour
             };
         }
 
-        Text[] playerTexts = playerSkillCanvas.GetComponentsInChildren<Text>();
-        foreach (Text txt in playerTexts)
+        /*TextMeshPro[] playerTexts = playerSkillCanvas.GetComponentsInChildren<TextMeshPro>();
+        foreach (TextMeshPro txt in playerTexts)
         {
             txt.text = playerSkillName;
-        }
+        }*/
+
+        playerSkillText.text = playerSkillName;
 
         // 적 스킬 UI 처리
         Image[] enemyImages = enemySkillCanvas.GetComponentsInChildren<Image>();
@@ -224,12 +230,12 @@ public class Gameplay : MonoBehaviour
             };
         }
 
-        Text[] enemyTexts = enemySkillCanvas.GetComponentsInChildren<Text>();
-        foreach (Text txt in enemyTexts)
+        /*TextMeshPro[] enemyTexts = enemySkillCanvas.GetComponentsInChildren<TextMeshPro>();
+        foreach (TextMeshPro txt in enemyTexts)
         {
             txt.text = enemySkillName;
-        }
-
+        }*/
+        enemySkillText.text = enemySkillName;
         StartCoroutine(ShowAndHideUI(3f)); // UI를 보여주고 숨기는 Coroutine 실행
     }
 
