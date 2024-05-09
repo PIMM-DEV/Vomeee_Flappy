@@ -13,6 +13,8 @@ public class Selecter_ability : MonoBehaviour
 
     public GameObject OriginalUI;
 
+    public Selecter act_selecter;
+
 
     void Start()
     {
@@ -50,38 +52,41 @@ public class Selecter_ability : MonoBehaviour
             {
                 gameplay.Ability_Guard();
 
-                Destroy(OriginalUI);
+                
             }
             else if(currselection == 1) 
             {
                 gameplay.Ability_Cure();
 
-                Destroy(OriginalUI);
+                
             }
             else if (currselection == 2)
             {
                 //gameplay.Ability_Stop();
 
-                Destroy(OriginalUI);
+                
             }
             else if (currselection == 3)
             {
                 //gameplay.Ability_Boost();
 
-                Destroy(OriginalUI);
+                
             }
             else if (currselection == 4)
             {
                 gameplay.Ability_Cure();
 
-                Destroy(OriginalUI);
+                
             }
             else if (currselection == 5)
             {
                 gameplay.Ability_Cure();
 
-                Destroy(OriginalUI);
+                
             }
+
+            act_selecter.is_being_controlled = true;
+            OriginalUI.SetActive(false);
         }
     }
 
