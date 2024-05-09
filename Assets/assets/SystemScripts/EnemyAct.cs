@@ -14,6 +14,7 @@ public class EnemyAct : MonoBehaviour
 
     public int final_atk_value;
     public int atk_Type;
+    public string atk_name;
 
     public Gameplay gameplay;
     // Start is called before the first frame update
@@ -65,6 +66,7 @@ public class EnemyAct : MonoBehaviour
         ShuffleAbilities(); //섞고
         final_atk_value = abilities[0].getAtkValue(enemyPower); // 1번 스킬 활성화
         atk_Type = abilities[0].getAtkType();
+        atk_name = abilities[0].getSkillName();
     }
 
     private void ShuffleAbilities()
@@ -84,13 +86,14 @@ public abstract class Ability
 {
     public abstract int getAtkValue (float enemyPower);
     public abstract int getAtkType ();
+
+    public abstract string getSkillName();
 }
 
 public class Rush_R : Ability
 {
     public override int getAtkValue(float enemyPower)
     {
-        Debug.Log("rushR enabled");
         // 추가적인 활성화 로직
 
         return (int)enemyPower; // 곱하기 1배
@@ -99,6 +102,11 @@ public class Rush_R : Ability
     public override int getAtkType()
     {
         return 0;
+    }
+
+    public override string getSkillName()
+    {
+        return "Rush Rock";
     }
 }
 
@@ -106,7 +114,6 @@ public class Rush_S : Ability
 {
     public override int getAtkValue(float enemyPower)
     {
-        Debug.Log("Ice Blast enabled");
 
         return (int)enemyPower; // 곱하기 1배
         // 추가적인 활성화 로직
@@ -115,6 +122,11 @@ public class Rush_S : Ability
     public override int getAtkType()
     {
         return 1;
+    }
+
+    public override string getSkillName()
+    {
+        return "Rush Scissor";
     }
 }
 
@@ -122,7 +134,6 @@ public class Rush_P : Ability
 {
     public override int getAtkValue(float enemyPower)
     {
-        Debug.Log("Ice Blast enabled");
 
         return (int)enemyPower; // 곱하기 1배
         // 추가적인 활성화 로직
@@ -132,13 +143,16 @@ public class Rush_P : Ability
     {
         return 2;
     }
+    public override string getSkillName()
+    {
+        return "Rush Paper";
+    }
 }
 
 public class Break_R : Ability
 {
     public override int getAtkValue(float enemyPower)
     {
-        Debug.Log("Ice Blast enabled");
 
         return (int)enemyPower * 2; // 곱하기 2배
         // 추가적인 활성화 로직
@@ -147,6 +161,10 @@ public class Break_R : Ability
     public override int getAtkType()
     {
         return 0;
+    }
+    public override string getSkillName()
+    {
+        return "Breaker Rock";
     }
 }
 
@@ -154,15 +172,16 @@ public class Break_S : Ability
 {
     public override int getAtkValue(float enemyPower)
     {
-        Debug.Log("Ice Blast enabled");
-
-        return (int)enemyPower * 2; // 곱하기 2배
-        // 추가적인 활성화 로직
+       return (int)enemyPower * 2;
     }
 
     public override int getAtkType()
     {
         return 1;
+    }
+    public override string getSkillName()
+    {
+        return "Breaker Scissor";
     }
 }
 
@@ -170,7 +189,6 @@ public class Break_P : Ability
 {
     public override int getAtkValue(float enemyPower)
     {
-        Debug.Log("Ice Blast enabled");
 
         return (int)enemyPower * 2; // 곱하기 2배
         // 추가적인 활성화 로직
@@ -180,13 +198,16 @@ public class Break_P : Ability
     {
         return 2;
     }
+    public override string getSkillName()
+    {
+        return "Breaker Paper";
+    }
 }
 
 public class Onslaught_R : Ability
 {
     public override int getAtkValue(float enemyPower)
     {
-        Debug.Log("Ice Blast enabled");
 
         return (int)enemyPower * 3; // 곱하기 3배
         // 추가적인 활성화 로직
@@ -196,13 +217,16 @@ public class Onslaught_R : Ability
     {
         return 0;
     }
+    public override string getSkillName()
+    {
+        return "Onslaught Rock";
+    }
 }
 
 public class Onslaught_S : Ability
 {
     public override int getAtkValue(float enemyPower)
     {
-        Debug.Log("Ice Blast enabled");
 
         return (int)enemyPower * 3; // 곱하기 3배
         // 추가적인 활성화 로직
@@ -212,13 +236,16 @@ public class Onslaught_S : Ability
     {
         return 1;
     }
+    public override string getSkillName()
+    {
+        return "Onslaught Scissor";
+    }
 }
 
 public class Onslaught_P : Ability
 {
     public override int getAtkValue(float enemyPower)
     {
-        Debug.Log("Ice Blast enabled");
 
         return (int)enemyPower * 3; // 곱하기 3배
         // 추가적인 활성화 로직
@@ -227,5 +254,9 @@ public class Onslaught_P : Ability
     public override int getAtkType()
     {
         return 2;
+    }
+    public override string getSkillName()
+    {
+        return "Onslaught Paper";
     }
 }

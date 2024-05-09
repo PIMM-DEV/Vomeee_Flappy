@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: Mobile - Flappy Bird - Version 12 Sprites_0
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -1806923041, guid: 535f8b428b006df49818a28a196ce9de, type: 3}
+  m_Sprite: {fileID: -650323835, guid: 535f8b428b006df49818a28a196ce9de, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

@@ -10,7 +10,7 @@ public class Selecter : MonoBehaviour
     public Vector2 newPosition;
     int currselection;
 
-    int[] posYs = new int[3] { 85, 0, -85 };
+    int[] posYs = new int[3] { 85, 5, -75 };
 
     public GameObject AbilityPanel;
     public GameObject JumpPanel;
@@ -74,7 +74,7 @@ public class Selecter : MonoBehaviour
 
             }
 
-            gameplay.TurnProcess();
+     
         }
     }
 }

@@ -65,7 +65,7 @@ public class Selecter_jump : MonoBehaviour
                 
             }
 
-            act_selecter.is_being_controlled = true;
+            
             this_panel.SetActive(false);
         }
     }
