@@ -1136,6 +1136,7 @@ MonoBehaviour:
   ATB_Multiplier: 1
   ATB_Increase: 0
   enemyActType: 01000000020000000300000004000000
+  turn: 1
 --- !u!4 &474848982
 Transform:
   m_ObjectHideFlags: 0
@@ -1934,7 +1935,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b84e3919db4654b95247b857e84894, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  imageTransform: {fileID: 1278199348}
+  recttransform: {fileID: 1278199348}
   newPosition: {x: 0, y: 0}
 --- !u!1 &1441603313
 GameObject:
