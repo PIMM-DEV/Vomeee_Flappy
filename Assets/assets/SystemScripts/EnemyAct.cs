@@ -22,7 +22,8 @@ public class EnemyAct : MonoBehaviour
     {
         SetValues();
         InitializeAbilities();
-        //SelectAbilities();
+        //ShowSkillList();
+        
     }
 
     private void SetValues()
@@ -80,7 +81,19 @@ public class EnemyAct : MonoBehaviour
         }
     }
 
+    public CanvasGroup enemySkillListUI;
+
+    public void ShowSkillList()
+    {
+        
+    }
+
 }
+
+
+
+#region SkillS_Abstract_Class
+
 
 public abstract class Ability
 {
@@ -260,3 +273,5 @@ public class Onslaught_P : Ability
         return "Onslaught Paper";
     }
 }
+
+#endregion

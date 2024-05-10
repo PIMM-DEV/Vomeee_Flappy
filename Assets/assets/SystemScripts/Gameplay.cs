@@ -80,7 +80,7 @@ public class Gameplay : MonoBehaviour
     void SpawnEnemy()
     {
         // 적 인스턴스화
-        enemyInstance = Instantiate(enemyPrefab, new Vector2(0, -25 + enemyPower * 0.05f), Quaternion.identity);
+        enemyInstance = Instantiate(enemyPrefab, new Vector2(-3, -25 + enemyPower * 0.05f), Quaternion.identity);
 
         enemyAct = enemyInstance.GetComponent<EnemyAct>();
         EnemyRB = enemyInstance.GetComponent<Rigidbody2D>();
@@ -209,11 +209,7 @@ public class Gameplay : MonoBehaviour
             };
         }
 
-        /*TextMeshPro[] playerTexts = playerSkillCanvas.GetComponentsInChildren<TextMeshPro>();
-        foreach (TextMeshPro txt in playerTexts)
-        {
-            txt.text = playerSkillName;
-        }*/
+        
 
         playerSkillText.text = playerSkillName;
 
