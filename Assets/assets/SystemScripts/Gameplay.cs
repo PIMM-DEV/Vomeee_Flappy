@@ -123,9 +123,9 @@ public class Gameplay : MonoBehaviour
             ATB += ATB_Multiplier * 20;
             StartCoroutine(WaitForCollide(3f));
 
-            if (collided == true)
+            if (player.transform.position.y < enemyInstance.transform.position.y + 24.0)
             {
-                PlayerHP -= (int)(HP_Decrease_multiplier * enemyAtkValue); 
+               PlayerHP -= (int)(HP_Decrease_multiplier * enemyAtkValue); 
             }
 
         }
@@ -137,16 +137,16 @@ public class Gameplay : MonoBehaviour
             Vector2 currentPlayerPosition = player.transform.position;
             player.transform.position = new Vector2(currentPlayerPosition.x, currentPlayerPosition.y - 0.5f * boost); //플레이어 하강
             ATB += ATB_Multiplier * 10;
-            StartCoroutine(WaitForCollide(1f));
+            StartCoroutine(WaitForCollide(2f));
 
-            if (collided == true)
+            if (player.transform.position.y < enemyInstance.transform.position.y + 24.0)
             {
                 PlayerHP -= (int)(HP_Decrease_multiplier * enemyAtkValue);
             }
        }
         else
         {
-            StartCoroutine(WaitForCollide(1f));
+            StartCoroutine(WaitForCollide(2f));
             if (collided == true)
             {
                 PlayerHP -= (int)(HP_Decrease_multiplier * enemyAtkValue);
@@ -154,25 +154,18 @@ public class Gameplay : MonoBehaviour
         }
 
         StartCoroutine(WaitForTurnEnd(1f));
-        
-       
-
     }
+
+    
     IEnumerator WaitForCollide(float delay)
     {
         EnemyMove();
         Debug.Log("on");
+        collided = enemyAct.collided;
         yield return new WaitForSeconds(delay);
         Debug.Log("off");
         // 3초 후 로직이 필요할 경우 여기에 추가하면 됩니다.
         // 충돌 결과를 확인하는 메소드
-    }
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")  // 플레이어와의 충돌 감지
-        {
-            collided = true;
-        }
     }
 
     IEnumerator WaitForTurnEnd(float delay)

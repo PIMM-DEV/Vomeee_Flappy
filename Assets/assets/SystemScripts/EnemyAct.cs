@@ -17,7 +17,10 @@ public class EnemyAct : MonoBehaviour
     public string atk_name;
 
     public Gameplay gameplay;
+    public bool collided = false;
     // Start is called before the first frame update
+
+    
     void Start()
     {
         SetValues();
@@ -86,6 +89,11 @@ public class EnemyAct : MonoBehaviour
     public void ShowSkillList()
     {
         
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        collided = true;
     }
 
 }
