@@ -153,10 +153,19 @@ public class Gameplay : MonoBehaviour
             }
         }
 
+        currentHPUI.text = PlayerHP.ToString();
+        currentATBUI.text = ATB.ToString();
+        currentBOOSTUI.text = boost.ToString();
+
         StartCoroutine(WaitForTurnEnd(1f));
     }
 
-    
+    public TextMeshProUGUI currentHPUI;
+    public TextMeshProUGUI currentATBUI;
+    public TextMeshProUGUI currentBOOSTUI;
+
+
+
     IEnumerator WaitForCollide(float delay)
     {
         EnemyMove();
