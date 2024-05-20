@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyAct : MonoBehaviour
@@ -25,7 +27,7 @@ public class EnemyAct : MonoBehaviour
     {
         SetValues();
         InitializeAbilities();
-        //ShowSkillList();
+        ShowSkillList();
         
     }
 
@@ -40,9 +42,11 @@ public class EnemyAct : MonoBehaviour
         } //최대 허용 갯수
     }
 
+    Ability ab = new VoidSkill();
+
     private void InitializeAbilities()
     {
-        List<Ability> allAbilities = new List<Ability>
+        List<Ability> allAbilities = new List<Ability>(9)
         {
         // 모든 가능한 능력을 여기에 추가
     
@@ -61,6 +65,12 @@ public class EnemyAct : MonoBehaviour
         abilities.Add(new Rush_S());
         abilities.Add(new Rush_P());
         //list완성
+
+        
+        while (abilities.Count < 9)
+        {
+            abilities.Add(ab); //빈 스킬 추가. 9만들기
+        }
     }
 
 
@@ -68,9 +78,14 @@ public class EnemyAct : MonoBehaviour
     public void SelectAbilities() //gameplay에서 직접 실행.
     {
         ShuffleAbilities(); //섞고
-        final_atk_value = abilities[0].getAtkValue(enemyPower); // 1번 스킬 활성화
-        atk_Type = abilities[0].getAtkType();
-        atk_name = abilities[0].getSkillName();
+        int index = 0;
+        while (abilities[index] == ab)
+        {
+            index++;
+        }
+        final_atk_value = abilities[index].getAtkValue(enemyPower); // 1번 스킬 활성화
+        atk_Type = abilities[index].getAtkType();
+        atk_name = abilities[index].getSkillName();
     }
 
     private void ShuffleAbilities()
@@ -84,11 +99,87 @@ public class EnemyAct : MonoBehaviour
         }
     }
 
-    public CanvasGroup enemySkillListUI;
+    public GameObject enemySkillListUI;
+    public TextMeshProUGUI skillList1;
+    public TextMeshProUGUI skillList2;
+    public TextMeshProUGUI skillList3;
+    public TextMeshProUGUI skillList4;
+    public TextMeshProUGUI skillList5;
+    public TextMeshProUGUI skillList6;
+    public TextMeshProUGUI skillList7;
+    public TextMeshProUGUI skillList8;
+    public TextMeshProUGUI skillList9;
 
     public void ShowSkillList()
     {
-        
+        TextMeshProUGUI[] textComponents = enemySkillListUI.GetComponentsInChildren<TextMeshProUGUI>();
+
+        if (textComponents.Length >= 9)
+        {
+            skillList1 = textComponents[0];
+            skillList2 = textComponents[1];
+            skillList3 = textComponents[2];
+            skillList4 = textComponents[3];
+            skillList5 = textComponents[4];
+            skillList6 = textComponents[5];
+            skillList7 = textComponents[6];
+            skillList8 = textComponents[7];
+            skillList9 = textComponents[8];
+        }
+        else
+        {
+            Debug.LogError("The instantiated prefab does not contain enough TextMeshProUGUI components.");
+        }
+
+
+        skillList1.text = abilities[0].getSkillName();
+        skillList2.text = abilities[1].getSkillName();
+        skillList3.text = abilities[2].getSkillName();
+        skillList4.text = abilities[3].getSkillName();
+
+        if (abilities[4] != ab)
+        {
+            skillList5.text = abilities[4].getSkillName();
+            
+        }
+        else
+        {
+            skillList5.text = "----------";
+        }
+        if (abilities[5] != ab)
+        {
+            skillList6.text = abilities[5].getSkillName();
+        }
+        else
+        {
+            skillList6.text = "----------";
+        }
+        if (abilities[6] != ab)
+        {
+            skillList7.text = abilities[6].getSkillName();
+        }
+        else
+        {
+            skillList7.text = "----------";
+        }
+        if (abilities[7] != ab)
+        {
+            skillList8.text = abilities[8].getSkillName();
+        }
+        else
+        {
+            skillList8.text = "----------";
+        }
+        if (abilities[8] != ab)
+        {
+            skillList9.text = abilities[8].getSkillName();
+        }
+        else
+        {
+            skillList9.text = "----------";
+        }
+
+        enemySkillListUI.SetActive(true);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -279,6 +370,25 @@ public class Onslaught_P : Ability
     public override string getSkillName()
     {
         return "Onslaught Paper";
+    }
+}
+
+public class VoidSkill : Ability
+{
+    public override int getAtkValue(float enemyPower)
+    {
+
+        return (int)enemyPower * 3; // 곱하기 3배
+        // 추가적인 활성화 로직
+    }
+
+    public override int getAtkType()
+    {
+        return 0;
+    }
+    public override string getSkillName()
+    {
+        return "";
     }
 }
 

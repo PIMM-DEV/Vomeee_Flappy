@@ -25,6 +25,7 @@ public class Selecter_ability : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float currentATB = gameplay.ATB;
         if(Input.GetKeyDown(KeyCode.W))
         {
             if(currselection == 0) { }
@@ -48,27 +49,27 @@ public class Selecter_ability : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            if(currselection == 0)
+            if(currselection == 0 && currentATB >= 50)
             {
                 gameplay.Ability_Guard();
 
                 
             }
-            else if(currselection == 1) 
+            else if(currselection == 1 && currentATB >= 60) 
             {
                 gameplay.Ability_Cure();
 
                 
             }
-            else if (currselection == 2)
+            else if (currselection == 2 && currentATB >= 70)
             {
-                //gameplay.Ability_Stop();
+                gameplay.Ability_PreEmptive();
 
                 
             }
-            else if (currselection == 3)
+            else if (currselection == 3 && currentATB >= 30)
             {
-                //gameplay.Ability_Boost();
+                gameplay.Ability_Boost();
 
                 
             }

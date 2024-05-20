@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;  // Image 컴포넌트를 위해 필요
 using TMPro;
+using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 public class Gameplay : MonoBehaviour
 {
@@ -13,7 +15,8 @@ public class Gameplay : MonoBehaviour
     public float ATB = 0; //행동 게이지, AbilityPoint.
     public float ATB_Multiplier = 1.0f; //ATB 증가량 배율
     public float ATB_Increase; //실제 상승량.
-    
+
+    public int score;
 
     public int[] enemyActType = new int[]{1,2,3,4};
 
@@ -44,6 +47,7 @@ public class Gameplay : MonoBehaviour
         currentRound = 0;
         enemyPower = 10.0f;
         //collided = false;
+        score = 0;
 
         TurnStart();
     }
@@ -77,6 +81,8 @@ public class Gameplay : MonoBehaviour
     public BoxCollider2D EnemyBoxCollider;
     public Rigidbody2D PlayerRB;
 
+    public GameObject EnemySkillListUI;
+
     void SpawnEnemy()
     {
         // 적 인스턴스화
@@ -87,9 +93,10 @@ public class Gameplay : MonoBehaviour
         EnemyBoxCollider = enemyInstance.GetComponent<BoxCollider2D>();
         enemyAct.gameplay = this;
 
+        enemyAct.enemySkillListUI = EnemySkillListUI;
+
     }
 
-    
 
     public void TurnProcess() //행동 선택후 대결
     {//플레이어는 선택완료
@@ -125,7 +132,8 @@ public class Gameplay : MonoBehaviour
 
             if (player.transform.position.y < enemyInstance.transform.position.y + 24.0)
             {
-               PlayerHP -= (int)(HP_Decrease_multiplier * enemyAtkValue); 
+               PlayerHP -= (int)(HP_Decrease_multiplier * enemyAtkValue);
+               player.transform.position = new Vector2(currentPlayerPosition.x, player.transform.position.y - 1f);
             }
 
         }
@@ -142,22 +150,54 @@ public class Gameplay : MonoBehaviour
             if (player.transform.position.y < enemyInstance.transform.position.y + 24.0)
             {
                 PlayerHP -= (int)(HP_Decrease_multiplier * enemyAtkValue);
+                player.transform.position = new Vector2(currentPlayerPosition.x, player.transform.position.y - 1f);
+                
             }
        }
         else
         {
-            StartCoroutine(WaitForCollide(2f));
-            if (collided == true)
+            Vector2 currentPlayerPosition = player.transform.position;
+
+            if (playerCondition == 3 || playerCondition == 4) //cure, guard
             {
-                PlayerHP -= (int)(HP_Decrease_multiplier * enemyAtkValue);
+                StartCoroutine(WaitForCollide(2f));
+                if (player.transform.position.y < enemyInstance.transform.position.y + 24.0)
+                {
+                    PlayerHP -= (int)(HP_Decrease_multiplier * enemyAtkValue);
+                    player.transform.position = new Vector2(currentPlayerPosition.x, player.transform.position.y - 1f);
+
+                }
             }
+            else if (playerCondition == 5) //stop
+            {
+
+            }
+
+            
+            
+        }
+
+       if(player.transform.position.y > 4.5)
+        {
+            player.transform.position = new Vector2(player.transform.position.x, 4.5f); //천장 방지
         }
 
         currentHPUI.text = PlayerHP.ToString();
         currentATBUI.text = ATB.ToString();
         currentBOOSTUI.text = boost.ToString();
 
+        IsDie(PlayerHP, player.transform.position.y, turn);
+
         StartCoroutine(WaitForTurnEnd(1f));
+    }
+
+    public void IsDie(int hp, float ypos, int turn)
+    {
+        if(hp <= 0 || ypos < -2.8)
+        {
+            PlayerPrefs.SetInt("Score", turn);
+            SceneManager.LoadScene("GameOverScene");
+        }
     }
 
     public TextMeshProUGUI currentHPUI;
@@ -248,6 +288,9 @@ public class Gameplay : MonoBehaviour
 
     public void TurnEnd() //대결 후
     {
+        score += turn;
+        score += boost;
+
         StartCoroutine(JustWait(2f));
         if (enemyInstance != null)
         {
@@ -296,6 +339,8 @@ public class Gameplay : MonoBehaviour
     {
         ATB -= 50;
         StartCoroutine(ChangeDmgMultiplier(0.5f, 25f)); //25초동안 DMG 배율 감소
+        playerCondition = 3;
+        TurnProcess();
 
 
     }
@@ -313,23 +358,32 @@ public class Gameplay : MonoBehaviour
     public void Ability_Cure()
     {
         ATB -= 60;
-        PlayerHP += 30;
+        PlayerHP += 50;
+
+        playerCondition = 4;
+        TurnProcess();
     }
 
-    public void Ability_Stop()
+    public void Ability_PreEmptive()
     {
+        ATB -= 60;
+        player.transform.position = new Vector2(player.transform.position.x, player.transform.position.y + 3);
+        playerCondition = 5;
+        TurnProcess();
+    }
 
+    public void Ability_Boost()
+    {
+        boost++;
+        playerCondition = 6;
+        TurnProcess();
     }
 
     #endregion
 
     #region enemyAct
 
-    
-    public void DetermineEnemyAct()
-    {
-        
-    }
+ 
 
 
 
