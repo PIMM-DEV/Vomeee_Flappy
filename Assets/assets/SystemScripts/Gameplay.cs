@@ -54,7 +54,10 @@ public class Gameplay : MonoBehaviour
 
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit(); //게임 종료
+        }
 
 
     }
