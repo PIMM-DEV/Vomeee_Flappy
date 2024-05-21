@@ -89,7 +89,7 @@ public class Gameplay : MonoBehaviour
     void SpawnEnemy()
     {
         // 적 인스턴스화
-        enemyInstance = Instantiate(enemyPrefab, new Vector2(-3, -25 + enemyPower * 0.05f), Quaternion.identity);
+        enemyInstance = Instantiate(enemyPrefab, new Vector2(-3, -25 + enemyPower * 0.065f), Quaternion.identity);
 
         enemyAct = enemyInstance.GetComponent<EnemyAct>();
         EnemyRB = enemyInstance.GetComponent<Rigidbody2D>();
@@ -141,7 +141,7 @@ public class Gameplay : MonoBehaviour
             if (player.transform.position.y < enemyInstance.transform.position.y + 24.0)
             {
                PlayerHP -= (int)(HP_Decrease_multiplier * enemyAtkValue);
-               player.transform.position = new Vector2(currentPlayerPosition.x, player.transform.position.y - 1f);
+               player.transform.position = new Vector2(currentPlayerPosition.x, player.transform.position.y - 1.5f);
             }
 
         }
@@ -158,7 +158,7 @@ public class Gameplay : MonoBehaviour
             if (player.transform.position.y < enemyInstance.transform.position.y + 24.0)
             {
                 PlayerHP -= (int)(HP_Decrease_multiplier * enemyAtkValue);
-                player.transform.position = new Vector2(currentPlayerPosition.x, player.transform.position.y - 1f);
+                player.transform.position = new Vector2(currentPlayerPosition.x, player.transform.position.y - 1.5f);
                 
             }
        }
@@ -172,7 +172,7 @@ public class Gameplay : MonoBehaviour
                 if (player.transform.position.y < enemyInstance.transform.position.y + 24.0)
                 {
                     PlayerHP -= (int)(HP_Decrease_multiplier * enemyAtkValue);
-                    player.transform.position = new Vector2(currentPlayerPosition.x, player.transform.position.y - 1f);
+                    player.transform.position = new Vector2(currentPlayerPosition.x, player.transform.position.y - 1.5f);
 
                 }
             }
@@ -184,7 +184,7 @@ public class Gameplay : MonoBehaviour
                 if (player.transform.position.y < enemyInstance.transform.position.y + 24.0)
                 {
                     PlayerHP -= (int)(HP_Decrease_multiplier * enemyAtkValue);
-                    player.transform.position = new Vector2(currentPlayerPosition.x, player.transform.position.y - 1f);
+                    player.transform.position = new Vector2(currentPlayerPosition.x, player.transform.position.y - 1.5f);
 
                 }
             }
@@ -389,7 +389,7 @@ public class Gameplay : MonoBehaviour
     public void Ability_Guard()
     {
         ATB -= 50;
-        //StartCoroutine(ChangeDmgMultiplier(0.5f, 25f)); //25초동안 DMG 배율 감소
+        playerSkillName = "Guard";      
         HP_Decrease_multiplier = 0.5f;
         GuardEndTurn = turn + 5;
         playerCondition = 3;
@@ -397,16 +397,7 @@ public class Gameplay : MonoBehaviour
 
 
     }
-    IEnumerator ChangeDmgMultiplier(float multiplier_change, float time)
-    {
-        float originalDmgMultiplier = HP_Decrease_multiplier;
-
-        HP_Decrease_multiplier = multiplier_change;
-
-        yield return new WaitForSeconds(time);
-
-        HP_Decrease_multiplier = originalDmgMultiplier;
-    }
+    
 
     public void Ability_Cure()
     {
@@ -422,7 +413,7 @@ public class Gameplay : MonoBehaviour
     {
         playerSkillName = "Pre-Emptive";
         ATB -= 60;
-        player.transform.position = new Vector2(player.transform.position.x, player.transform.position.y + 3);
+        //player.transform.position = new Vector2(player.transform.position.x, player.transform.position.y + 3f);
         playerCondition = 5;
         TurnProcess();
     }
@@ -449,7 +440,7 @@ public class Gameplay : MonoBehaviour
     public void Ability_Haste()
     {
         playerSkillName = "Haste";
-        ATB -= 50;
+        ATB -= 100;
         playerCondition = 6;
         ATB_Multiplier = 2.0f;
         TurnProcess();

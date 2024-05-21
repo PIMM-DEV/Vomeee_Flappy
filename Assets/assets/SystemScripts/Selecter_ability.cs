@@ -33,7 +33,7 @@ public class Selecter_ability : MonoBehaviour
         }
         else if (curr_selection == 1) //cure
         {
-            SkillInstructiontext.text = "HP + 60, Relies on Boost. ";
+            SkillInstructiontext.text = "Heal, Relies on Boost. ";
         }
         else if (curr_selection == 2) //Preemptive
         {
@@ -45,7 +45,7 @@ public class Selecter_ability : MonoBehaviour
         }
         else if (curr_selection == 4) //Regen
         {
-            SkillInstructiontext.text = "HP + 20 for 5turns, \n Relies on Boost.";
+            SkillInstructiontext.text = "Heal for 5turns, \n Relies on Boost.";
         }
         else if(curr_selection == 5)
         {
@@ -116,7 +116,7 @@ public class Selecter_ability : MonoBehaviour
 
                 
             }
-            else if (currselection == 5 && currentATB >= 50)
+            else if (currselection == 5 && currentATB >= 100)
             {
                 gameplay.Ability_Haste();
 
