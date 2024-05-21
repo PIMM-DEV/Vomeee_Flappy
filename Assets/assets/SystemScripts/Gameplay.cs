@@ -97,6 +97,11 @@ public class Gameplay : MonoBehaviour
 
     }
 
+    private bool isRegening;
+    private int RegenEndTurn;
+    private int HasteEndTurn;
+    private int GuardEndTurn;
+
 
     public void TurnProcess() //행동 선택후 대결
     {//플레이어는 선택완료
@@ -115,8 +120,8 @@ public class Gameplay : MonoBehaviour
                 (enemyAtkType == 2 && playerCondition == 1)) //플레이어의 승리
        {
             Vector2 currentPlayerPosition = player.transform.position;
-            player.transform.position = new Vector2(currentPlayerPosition.x, currentPlayerPosition.y + 0.5f * boost) ; //플레이어 상승.
-            ATB += ATB_Multiplier * 30;
+            player.transform.position = new Vector2(currentPlayerPosition.x, currentPlayerPosition.y + 0.25f * boost) ; //플레이어 상승.
+            ATB += ATB_Multiplier * (29 + boost * 3);
             EnemyRB.velocity = new Vector2(30, -5); //사라져라
             
         }
@@ -127,7 +132,7 @@ public class Gameplay : MonoBehaviour
         {
             Vector2 currentPlayerPosition = player.transform.position;
             //player.transform.position = new Vector2(currentPlayerPosition.x, currentPlayerPosition.y + 0.5f * boost); //플레이어 상승.
-            ATB += ATB_Multiplier * 20;
+            ATB += ATB_Multiplier * (19 + boost * 3);
             StartCoroutine(WaitForCollide(3f));
 
             if (player.transform.position.y < enemyInstance.transform.position.y + 24.0)
@@ -143,8 +148,8 @@ public class Gameplay : MonoBehaviour
                 (enemyAtkType == 0 && playerCondition == 1)) //플레이어 패배
        {
             Vector2 currentPlayerPosition = player.transform.position;
-            player.transform.position = new Vector2(currentPlayerPosition.x, currentPlayerPosition.y - 0.5f * boost); //플레이어 하강
-            ATB += ATB_Multiplier * 10;
+            player.transform.position = new Vector2(currentPlayerPosition.x, currentPlayerPosition.y - 0.25f * boost); //플레이어 하강
+            ATB += ATB_Multiplier * (9 + boost * 3);
             StartCoroutine(WaitForCollide(2f));
 
             if (player.transform.position.y < enemyInstance.transform.position.y + 24.0)
@@ -168,14 +173,52 @@ public class Gameplay : MonoBehaviour
 
                 }
             }
-            else if (playerCondition == 5) //stop
+            else if (playerCondition == 5) //pre-emptive
             {
+                player.transform.position = new Vector2(currentPlayerPosition.x, player.transform.position.y + 2f);
 
+                StartCoroutine(WaitForCollide(2f));
+                if (player.transform.position.y < enemyInstance.transform.position.y + 24.0)
+                {
+                    PlayerHP -= (int)(HP_Decrease_multiplier * enemyAtkValue);
+                    player.transform.position = new Vector2(currentPlayerPosition.x, player.transform.position.y - 1f);
+
+                }
             }
 
-            
-            
+            else if (playerCondition == 6) //Boost
+            {
+
+                StartCoroutine(WaitForCollide(2f));
+                if (player.transform.position.y < enemyInstance.transform.position.y + 24.0)
+                {
+                    PlayerHP -= (int)(HP_Decrease_multiplier * enemyAtkValue);
+                    player.transform.position = new Vector2(currentPlayerPosition.x, player.transform.position.y - 1f);
+
+                }
+            }
+
+
+
+
+
+
+
         }
+
+       if(isRegening)
+       {
+            PlayerHP += 20 + boost;
+            if (turn == RegenEndTurn) isRegening = false;
+       }
+       if(turn == HasteEndTurn) 
+       {
+            ATB_Multiplier = 1f;
+       }
+       if(turn == GuardEndTurn)
+       {
+            HP_Decrease_multiplier = 1f;
+       }
 
        if(player.transform.position.y > 4.5)
         {
@@ -195,7 +238,7 @@ public class Gameplay : MonoBehaviour
     {
         if(hp <= 0 || ypos < -2.8)
         {
-            PlayerPrefs.SetInt("Score", turn);
+            PlayerPrefs.SetInt("Score", score);
             SceneManager.LoadScene("GameOverScene");
         }
     }
@@ -286,10 +329,13 @@ public class Gameplay : MonoBehaviour
         EnemySkillUI.SetActive(false);
     }
 
+    public TextMeshProUGUI ScoreText;
     public void TurnEnd() //대결 후
     {
         score += turn;
         score += boost;
+        ScoreText.text = "Score  " + score;
+        
 
         StartCoroutine(JustWait(2f));
         if (enemyInstance != null)
@@ -331,6 +377,8 @@ public class Gameplay : MonoBehaviour
 
     public void Stay()
     {
+        playerCondition = 3;
+        player.transform.position = new Vector2(player.transform.position.x, player.transform.position.y - 0.3f);
         playerSkillName = "Stay";
         TurnProcess();
     }
@@ -338,7 +386,9 @@ public class Gameplay : MonoBehaviour
     public void Ability_Guard()
     {
         ATB -= 50;
-        StartCoroutine(ChangeDmgMultiplier(0.5f, 25f)); //25초동안 DMG 배율 감소
+        //StartCoroutine(ChangeDmgMultiplier(0.5f, 25f)); //25초동안 DMG 배율 감소
+        HP_Decrease_multiplier = 0.5f;
+        GuardEndTurn = turn + 5;
         playerCondition = 3;
         TurnProcess();
 
@@ -357,8 +407,9 @@ public class Gameplay : MonoBehaviour
 
     public void Ability_Cure()
     {
+        playerSkillName = "Cure";
         ATB -= 60;
-        PlayerHP += 50;
+        PlayerHP += 50 + boost * 5;
 
         playerCondition = 4;
         TurnProcess();
@@ -366,6 +417,7 @@ public class Gameplay : MonoBehaviour
 
     public void Ability_PreEmptive()
     {
+        playerSkillName = "Pre-Emptive";
         ATB -= 60;
         player.transform.position = new Vector2(player.transform.position.x, player.transform.position.y + 3);
         playerCondition = 5;
@@ -374,16 +426,37 @@ public class Gameplay : MonoBehaviour
 
     public void Ability_Boost()
     {
+        playerSkillName = "Boost";
+        ATB -= 30;
         boost++;
         playerCondition = 6;
         TurnProcess();
     }
 
+    public void Ability_Regen()
+    {
+        playerSkillName = "Regen";
+        ATB -= 70;
+        playerCondition = 6;
+        TurnProcess();
+        isRegening = true;
+        RegenEndTurn = turn + 5;
+    }
+
+    public void Ability_Haste()
+    {
+        playerSkillName = "Haste";
+        ATB -= 50;
+        playerCondition = 6;
+        ATB_Multiplier = 2.0f;
+        TurnProcess();
+        HasteEndTurn = turn + 5;
+    }
     #endregion
 
     #region enemyAct
 
- 
+
 
 
 

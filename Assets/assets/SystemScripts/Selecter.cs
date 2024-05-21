@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,22 +22,42 @@ public class Selecter : MonoBehaviour
 
     public Gameplay gameplay;
 
+    public TextMeshProUGUI ActInstruction;
+
     void Start()
     {
         currselection = 0;
         is_being_controlled = true;
     }
 
+    void setSkillInstruction(int curr_selection)
+    {
+        if(curr_selection == 0)
+        {
+            ActInstruction.text = "Determine Jump type.";
+        }
+        else if (curr_selection == 1)
+        {
+            ActInstruction.text = "Determine ability.";
+        }
+        else if (curr_selection == 2)
+        {
+            ActInstruction.text = "Stay for this turn.";
+        }
+    }
+
 
     // Update is called once per frame
     void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.W) && is_being_controlled)
         {
             if (currselection == 0) { }
             else
             {
                 currselection--;
+                setSkillInstruction(currselection);
                 recttransform.anchoredPosition = new Vector2(-150, posYs[currselection]);
             }
         }
@@ -47,6 +68,7 @@ public class Selecter : MonoBehaviour
             else
             {
                 currselection++;
+                setSkillInstruction(currselection);
                 recttransform.anchoredPosition = new Vector2(-150, posYs[currselection]);
             }
 

@@ -132,14 +132,14 @@ public class EnemyAct : MonoBehaviour
         }
 
 
-        skillList1.text = abilities[0].getSkillName();
-        skillList2.text = abilities[1].getSkillName();
-        skillList3.text = abilities[2].getSkillName();
-        skillList4.text = abilities[3].getSkillName();
+        skillList1.text = abilities[0].getSkillName() + " " + abilities[0].getAtkValue(enemyPower);
+        skillList2.text = abilities[1].getSkillName() + " " + abilities[1].getAtkValue(enemyPower);
+        skillList3.text = abilities[2].getSkillName() + " " + abilities[2].getAtkValue(enemyPower);
+        skillList4.text = abilities[3].getSkillName() + " " + abilities[3].getAtkValue(enemyPower);
 
         if (abilities[4] != ab)
         {
-            skillList5.text = abilities[4].getSkillName();
+            skillList5.text = abilities[4].getSkillName() + " " + abilities[4].getAtkValue(enemyPower);
             
         }
         else
@@ -148,7 +148,7 @@ public class EnemyAct : MonoBehaviour
         }
         if (abilities[5] != ab)
         {
-            skillList6.text = abilities[5].getSkillName();
+            skillList6.text = abilities[5].getSkillName() + " " + abilities[5].getAtkValue(enemyPower);
         }
         else
         {
@@ -156,7 +156,7 @@ public class EnemyAct : MonoBehaviour
         }
         if (abilities[6] != ab)
         {
-            skillList7.text = abilities[6].getSkillName();
+            skillList7.text = abilities[6].getSkillName() + " " + abilities[6].getAtkValue(enemyPower);
         }
         else
         {
@@ -164,7 +164,7 @@ public class EnemyAct : MonoBehaviour
         }
         if (abilities[7] != ab)
         {
-            skillList8.text = abilities[8].getSkillName();
+            skillList8.text = abilities[7].getSkillName() + " " + abilities[7].getAtkValue(enemyPower);
         }
         else
         {
@@ -172,7 +172,7 @@ public class EnemyAct : MonoBehaviour
         }
         if (abilities[8] != ab)
         {
-            skillList9.text = abilities[8].getSkillName();
+            skillList9.text = abilities[8].getSkillName() + " " + abilities[8].getAtkValue(enemyPower);
         }
         else
         {
